@@ -30,6 +30,8 @@
 #define GT  323
 #define LT  324
 #define CMNT 326
+#define LEQ 327
+#define BEQ 328
 %}
 
 DIGITO [0-9]
@@ -54,6 +56,8 @@ OUTRO [^0-9a-zA-Z;<>/=\-\+\*\(\)\[\],\\n\\r\{\}\\t]
 "]"             return FCL;
 "<"             return LT;
 ">"             return GT;
+"<="            return LEQ;
+">="            return BEQ;
 ,               return VRG;
 <<EOF>>         return FIM;
 {NOVALINHA}     return NL;  
@@ -131,6 +135,8 @@ int main(int argc, char *argv[])
       case ACH: printf("{ ");       break;
       case FCL: printf("] ");       break;
       case ACL: printf("[ ");       break;
+      case LEQ: printf("<= ");       break;
+      case BEQ: printf(">= ");        break;
     }
     i++;
   }
