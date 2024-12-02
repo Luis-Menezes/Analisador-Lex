@@ -9,7 +9,7 @@
 #define SUB 303
 #define MUL 304
 #define DIV 305
-#define IGL 306
+#define ATT 306
 #define PEV 307
 #define APR 308
 #define FPR 309
@@ -44,7 +44,7 @@ OUTRO [^0-9a-zA-Z;<>/=\-\+\*\(\)\[\],\\n\\r\{\}\\t]
 "-"				return SUB;
 "*"				return MUL;
 "/"				return DIV;
-=				return IGL;
+=				return ATT;
 ;				return PEV;
 "("				return APR;
 ")"				return FPR;
@@ -74,7 +74,7 @@ OUTRO [^0-9a-zA-Z;<>/=\-\+\*\(\)\[\],\\n\\r\{\}\\t]
 
 }  
 [ \t]+ 
-{LETRA}({LETRA}|{DIGITO})*	return ID;
+{LETRA}{LETRA}*	return ID;
 {OUTRO}+			return ERR;
 
 %%
@@ -112,14 +112,14 @@ int main(int argc, char *argv[])
       case SUB: printf("- ");       break;
       case MUL: printf("* ");       break;
       case DIV: printf("/ ");       break;
-      case IGL: printf(" = ");      break;
+      case ATT: printf(" ATT ");      break;
       case PEV: printf("; ");       break;
       case VRG: printf(", ");       break;
       case APR: printf("( ");       break;
       case FPR: printf(") ");       break;
       case GT:  printf("> ");       break;
       case LT:  printf("< ");       break;
-      case NL:  printf("NL \n");    break;
+      case NL:  printf("\n");    break;
       case ERR: printf("ERR ");     break;
       case INT: printf("INT ");     break;
       case RTN: printf("RETURN ");  break;
