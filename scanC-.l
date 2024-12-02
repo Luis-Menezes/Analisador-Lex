@@ -37,17 +37,17 @@
 
 DIGITO [0-9]
 LETRA [a-zA-Z]
-NOVALINHA \r?\n+\t*
-OUTRO [^0-9a-zA-Z;<>/=\-\+\*\(\)\[\],\\n\\r\{\}\\t]
+NOVALINHA (\r?\n)+
+OUTRO [^0-9a-zA-Z;<>/=\-\+\*\(\)\[\],\\n\\r\{\}\\t[ ]]
 
 %%
 
-{DIGITO}+			return NUM;
+{DIGITO}+		return NUM;
 "+"				return SOM;
 "-"				return SUB;
 "*"				return MUL;
 "/"				return DIV;
-"=="      return IGL;
+"=="          	return IGL;
 =				return ATT;
 ;				return PEV;
 "("				return APR;
@@ -63,6 +63,7 @@ OUTRO [^0-9a-zA-Z;<>/=\-\+\*\(\)\[\],\\n\\r\{\}\\t]
 ,               return VRG;
 <<EOF>>         return FIM;
 {NOVALINHA}     return NL;  
+[ |\t]+ 		;
 "if"            return IF;
 "else"          return ELS;
 "int"           return INT; 
@@ -77,10 +78,7 @@ OUTRO [^0-9a-zA-Z;<>/=\-\+\*\(\)\[\],\\n\\r\{\}\\t]
                     if(input()=='/')  break;
                   }
                 }while(c!=EOF);
-
-
 }  
-[ \t]+ 
 {LETRA}{LETRA}*	return ID;
 {OUTRO}+			return ERR;
 
