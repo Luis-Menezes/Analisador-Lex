@@ -1,3 +1,4 @@
+/* ta com um erro que nao ta lendo quando e uma cha*/
 %{
 #include <stdlib.h>
 #include <stdio.h>
@@ -29,8 +30,8 @@
 
 DIGITO [0-9]
 LETRA [a-zA-Z]
-OUTRO [^0-9a-zA-Z;/=\-\+\*\(\)\[\]\,]
-NOVALINHA \\n
+NOVALINHA \r?\n+\t*
+OUTRO [^0-9a-zA-Z;/=\-\+\*\(\)\[\]\,\\n\\r\{\}\\t]
 
 %%
 
@@ -47,7 +48,7 @@ NOVALINHA \\n
 "}"             return FCH;
 "["             return ACL;
 "]"             return FCL;
-","             return VRG;
+,               return VRG;
 <<EOF>>         return FIM;
 {NOVALINHA}     return NL;  
 "if"            return IF;
@@ -55,7 +56,7 @@ NOVALINHA \\n
 "int"           return INT; 
 "while"         return WHL;
 "return"        return RTN;    
-[ "\t"]+ 
+[ \t]+ 
 {LETRA}({LETRA}|{DIGITO})*	return ID;
 {OUTRO}+			return ERR;
 
@@ -102,6 +103,7 @@ int main(int argc, char *argv[])
       case NL:  printf("NL \n");    break;
       case ERR: printf("ERR ");     break;
       case INT: printf("INT ");     break;
+      case RTN: printf("RETURN ");     break;
       case WHL: printf("WHILE ");   break;
       case IF:  printf("IF ");       break;
       case ELS: printf("ELSE ");   break;
