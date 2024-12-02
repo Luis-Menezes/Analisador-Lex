@@ -29,10 +29,10 @@
 #define VRG 322
 #define GT  323
 #define LT  324
-#define CMNT 326
 #define LEQ 327
 #define BEQ 328
 #define IGL 329
+#define DIF 330
 %}
 
 DIGITO [0-9]
@@ -48,6 +48,7 @@ OUTRO [^0-9a-zA-Z;<>/=\-\+\*\(\)\[\],\\n\\r\{\}\\t[ ]]
 "*"				return MUL;
 "/"				return DIV;
 "=="          	return IGL;
+"!="			return DIF;
 =				return ATT;
 ;				return PEV;
 "("				return APR;
@@ -63,7 +64,7 @@ OUTRO [^0-9a-zA-Z;<>/=\-\+\*\(\)\[\],\\n\\r\{\}\\t[ ]]
 ,               return VRG;
 <<EOF>>         return FIM;
 {NOVALINHA}     return NL;  
-[ |\t]+ 		;
+[ \t]+ 		;
 "if"            return IF;
 "else"          return ELS;
 "int"           return INT; 
@@ -114,6 +115,7 @@ int main(int argc, char *argv[])
       case NUM: printf("NUM ");     break;
       case ID:  printf("ID ");      break;
       case IGL: printf("IGL ");     break;
+	  case DIF: printf("DIF ");		break;
       case SOM: printf("+ ");       break;
       case SUB: printf("- ");       break;
       case MUL: printf("* ");       break;
