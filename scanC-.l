@@ -1,4 +1,4 @@
-/* ta com um erro que nao ta lendo quando e uma cha*/
+/* ta com um erro na linha 6,7 do programa do gcd*/
 %{
 #include <stdlib.h>
 #include <stdio.h>
@@ -19,6 +19,7 @@
 #define INT 313
 #define IF  318
 #define ELS 319
+#define VOD 325
 #define WHL 314
 #define RTN 315
 #define ACH 316
@@ -26,12 +27,15 @@
 #define ACL 320
 #define FCL 321
 #define VRG 322
+#define GT  323
+#define LT  324
+#define CMNT 326
 %}
 
 DIGITO [0-9]
 LETRA [a-zA-Z]
 NOVALINHA \r?\n+\t*
-OUTRO [^0-9a-zA-Z;/=\-\+\*\(\)\[\]\,\\n\\r\{\}\\t]
+OUTRO [^0-9a-zA-Z;<>/=\-\+\*\(\)\[\],\\n\\r\{\}\\t]
 
 %%
 
@@ -48,6 +52,8 @@ OUTRO [^0-9a-zA-Z;/=\-\+\*\(\)\[\]\,\\n\\r\{\}\\t]
 "}"             return FCH;
 "["             return ACL;
 "]"             return FCL;
+"<"             return LT;
+">"             return GT;
 ,               return VRG;
 <<EOF>>         return FIM;
 {NOVALINHA}     return NL;  
@@ -55,7 +61,18 @@ OUTRO [^0-9a-zA-Z;/=\-\+\*\(\)\[\]\,\\n\\r\{\}\\t]
 "else"          return ELS;
 "int"           return INT; 
 "while"         return WHL;
-"return"        return RTN;    
+"void"          return VOD;
+"return"        return RTN;  
+"/*"            {char c;
+                do{
+                  c = input();
+                  if(c == EOF) break;
+                  if(c=='*'){
+                    if(input()=='/')  return CMNT;
+                  }
+                }while(c!=EOF);
+
+}  
 [ \t]+ 
 {LETRA}({LETRA}|{DIGITO})*	return ID;
 {OUTRO}+			return ERR;
@@ -96,20 +113,23 @@ int main(int argc, char *argv[])
       case MUL: printf("* ");       break;
       case DIV: printf("/ ");       break;
       case IGL: printf(" = ");      break;
-      case PEV: printf("; ");     break;
+      case PEV: printf("; ");       break;
       case VRG: printf(", ");       break;
       case APR: printf("( ");       break;
       case FPR: printf(") ");       break;
+      case GT:  printf("> ");       break;
+      case LT:  printf("< ");       break;
       case NL:  printf("NL \n");    break;
       case ERR: printf("ERR ");     break;
       case INT: printf("INT ");     break;
-      case RTN: printf("RETURN ");     break;
+      case RTN: printf("RETURN ");  break;
+      case VOD: printf("VOID ");    break;
       case WHL: printf("WHILE ");   break;
-      case IF:  printf("IF ");       break;
-      case ELS: printf("ELSE ");   break;
-      case FCH: printf("}");    break;
+      case IF:  printf("IF ");      break;
+      case ELS: printf("ELSE ");    break;
+      case FCH: printf("}");        break;
       case ACH: printf("{ ");       break;
-      case FCL: printf("] ");    break;
+      case FCL: printf("] ");       break;
       case ACL: printf("[ ");       break;
     }
     i++;
