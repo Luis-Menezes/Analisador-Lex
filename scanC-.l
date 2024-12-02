@@ -32,6 +32,7 @@
 #define CMNT 326
 #define LEQ 327
 #define BEQ 328
+#define IGL 329
 %}
 
 DIGITO [0-9]
@@ -46,6 +47,7 @@ OUTRO [^0-9a-zA-Z;<>/=\-\+\*\(\)\[\],\\n\\r\{\}\\t]
 "-"				return SUB;
 "*"				return MUL;
 "/"				return DIV;
+"=="      return IGL;
 =				return ATT;
 ;				return PEV;
 "("				return APR;
@@ -72,9 +74,10 @@ OUTRO [^0-9a-zA-Z;<>/=\-\+\*\(\)\[\],\\n\\r\{\}\\t]
                   c = input();
                   if(c == EOF) return ERR;
                   if(c=='*'){
-                    if(input()=='/')  return CMNT;
+                    if(input()=='/')  break;
                   }
                 }while(c!=EOF);
+
 
 }  
 [ \t]+ 
@@ -112,6 +115,7 @@ int main(int argc, char *argv[])
     {
       case NUM: printf("NUM ");     break;
       case ID:  printf("ID ");      break;
+      case IGL: printf("IGL ");     break;
       case SOM: printf("+ ");       break;
       case SUB: printf("- ");       break;
       case MUL: printf("* ");       break;
