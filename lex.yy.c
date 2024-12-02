@@ -407,7 +407,7 @@ static char *yy_last_accepting_cpos;
 char *yytext;
 #line 1 "scanC-.l"
 #define INITIAL 0
-/* ta com um erro que nao ta lendo quando e uma cha*/
+/* ta com um erro na linha 6,7 do programa do gcd*/
 #line 3 "scanC-.l"
 #include <stdlib.h>
 #include <stdio.h>
@@ -801,7 +801,7 @@ YY_RULE_SETUP
 {char c;
                 do{
                   c = input();
-                  if(c == EOF) break;
+                  if(c == EOF) return ERR;
                   if(c=='*'){
                     if(input()=='/')  return CMNT;
                   }

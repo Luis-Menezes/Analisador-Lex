@@ -66,7 +66,7 @@ OUTRO [^0-9a-zA-Z;<>/=\-\+\*\(\)\[\],\\n\\r\{\}\\t]
 "/*"            {char c;
                 do{
                   c = input();
-                  if(c == EOF) break;
+                  if(c == EOF) return ERR;
                   if(c=='*'){
                     if(input()=='/')  return CMNT;
                   }
