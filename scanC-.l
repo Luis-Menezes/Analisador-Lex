@@ -33,12 +33,15 @@
 #define BEQ 328
 #define IGL 329
 #define DIF 330
+int n_linha = 1;
+
 %}
 
 DIGITO [0-9]
 LETRA [a-zA-Z]
 NOVALINHA (\r?\n)+
-OUTRO [^0-9a-zA-Z;<>/=\-\+\*\(\)\[\],\\n\\r\{\}\\t[ ]]
+OUTRO[^a-zA-Z0-9_\s\+\-\*/<>=!;,{}\(\)\[\]\"\'/]
+
 
 %%
 
@@ -63,7 +66,7 @@ OUTRO [^0-9a-zA-Z;<>/=\-\+\*\(\)\[\],\\n\\r\{\}\\t[ ]]
 ">="            return BEQ;
 ,               return VRG;
 <<EOF>>         return FIM;
-{NOVALINHA}     return NL;  
+{NOVALINHA}     {n_linha++; return NL;} 
 [ \t]+ 		;
 "if"            return IF;
 "else"          return ELS;
@@ -81,7 +84,7 @@ OUTRO [^0-9a-zA-Z;<>/=\-\+\*\(\)\[\],\\n\\r\{\}\\t[ ]]
                 }while(c!=EOF);
 }  
 {LETRA}{LETRA}*	return ID;
-{OUTRO}+			return ERR;
+{OUTRO}+			{printf("Erro lexico na linha: %d \n", n_linha);return ERR;};
 
 %%
 
@@ -128,7 +131,7 @@ int main(int argc, char *argv[])
       case GT:  printf("> ");       break;
       case LT:  printf("< ");       break;
       case NL:  printf("\n");    break;
-      case ERR: printf("ERR ");     break;
+      case ERR: printf("Erro léxico na linha: %d ", n_linha);     break;
       case INT: printf("INT ");     break;
       case RTN: printf("RETURN ");  break;
       case VOD: printf("VOID ");    break;
@@ -144,6 +147,7 @@ int main(int argc, char *argv[])
     }
     i++;
   }
+  printf("\nNumero total de linhas: %d", n_linha);
   return(0);
 }
 
