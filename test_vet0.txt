@@ -1,0 +1,4 @@
+vet0 = 0;
+while(vet0 != 10){printf("%d",vet0); vet0++;
+}
+return 0;

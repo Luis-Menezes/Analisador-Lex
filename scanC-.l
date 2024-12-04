@@ -33,6 +33,7 @@
 #define BEQ 328
 #define IGL 329
 #define DIF 330
+#define IDERR 331
 int n_linha = 1;
 
 %}
@@ -40,7 +41,9 @@ int n_linha = 1;
 DIGITO [0-9]
 LETRA [a-zA-Z]
 NOVALINHA (\r?\n)+
+ID (LETRA)(LETRA)*
 OUTRO[^a-zA-Z0-9_\s\+\-\*/<>=!;,{}\(\)\[\]\"\'/]
+IDERR (DIGITO)+(ID) | (LETRA)(DIGITO)+(LETRA)* | (ID)(DIGITO)+ 
 
 
 %%
@@ -82,9 +85,11 @@ OUTRO[^a-zA-Z0-9_\s\+\-\*/<>=!;,{}\(\)\[\]\"\'/]
                     if(input()=='/')  break;
                   }
                 }while(c!=EOF);
-}  
+} 
 {LETRA}{LETRA}*	return ID;
+{IDERR} return IDERR;
 {OUTRO}+			{printf("Erro lexico na linha: %d \n", n_linha);return ERR;};
+
 
 %%
 
@@ -131,7 +136,7 @@ int main(int argc, char *argv[])
       case GT:  printf("> ");       break;
       case LT:  printf("< ");       break;
       case NL:  printf("\n");    break;
-      case ERR: printf("Erro léxico na linha: %d ", n_linha);     break;
+      case ERR: printf("ERR");     break;
       case INT: printf("INT ");     break;
       case RTN: printf("RETURN ");  break;
       case VOD: printf("VOID ");    break;
@@ -144,6 +149,7 @@ int main(int argc, char *argv[])
       case ACL: printf("[ ");       break;
       case LEQ: printf("<= ");       break;
       case BEQ: printf(">= ");        break;
+      case IDERR: printf("IDERR");   break;
     }
     i++;
   }
