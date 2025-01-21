@@ -1,4 +1,4 @@
-/* ta com um erro na linha 6,7 do programa do gcd*/
+/* FALAR AQUI OS ERROS PFVR */
 %{
 #include <stdlib.h>
 #include <stdio.h>
@@ -33,17 +33,16 @@
 #define BEQ 328
 #define IGL 329
 #define DIF 330
-#define IDERR 331
+#define IDERROR 331
 int n_linha = 1;
 
 %}
 
 DIGITO [0-9]
 LETRA [a-zA-Z]
-NOVALINHA (\r?\n)+
-ID (LETRA)(LETRA)*
-OUTRO[^a-zA-Z0-9_\s\+\-\*/<>=!;,{}\(\)\[\]\"\'/]
-IDERR (DIGITO)+(ID) | (LETRA)(DIGITO)+(LETRA)* | (ID)(DIGITO)+ 
+NOVALINHA (\r?\n)+(\t)*
+IDERR {DIGITO}+{LETRA}+|{LETRA}{DIGITO}+{LETRA}*|{LETRA}+{DIGITO}+ 
+OUTRO [^a-zA-Z0-9_\s\+\-\*/<>=!;,{}\(\)\[\]\"\'/ ]
 
 
 %%
@@ -70,7 +69,7 @@ IDERR (DIGITO)+(ID) | (LETRA)(DIGITO)+(LETRA)* | (ID)(DIGITO)+
 ,               return VRG;
 <<EOF>>         return FIM;
 {NOVALINHA}     {n_linha++; return NL;} 
-[ \t]+ 		;
+[\t]+ 		      ;
 "if"            return IF;
 "else"          return ELS;
 "int"           return INT; 
@@ -87,8 +86,8 @@ IDERR (DIGITO)+(ID) | (LETRA)(DIGITO)+(LETRA)* | (ID)(DIGITO)+
                 }while(c!=EOF);
 } 
 {LETRA}{LETRA}*	return ID;
-{IDERR} return IDERR;
-{OUTRO}+			{printf("Erro lexico na linha: %d \n", n_linha);return ERR;};
+{IDERR}         {printf("Erro lexico no identificador da linha: %d \n", n_linha); return IDERROR;}
+{OUTRO}+			  {printf("Erro lexico na linha: %d \n", n_linha);return ERR;};
 
 
 %%
@@ -149,7 +148,7 @@ int main(int argc, char *argv[])
       case ACL: printf("[ ");       break;
       case LEQ: printf("<= ");       break;
       case BEQ: printf(">= ");        break;
-      case IDERR: printf("IDERR");   break;
+      case IDERROR: printf("IDERR");   break;
     }
     i++;
   }
