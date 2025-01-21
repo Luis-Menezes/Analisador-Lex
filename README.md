@@ -1,1 +1,5 @@
-# Analisador Léxico para desenvolvimento do Compilador na linguagem C-
+# Compilador para linguagem C-
+Luis Filipe Carvalho de Menezes
+Arthur Moreira Craveiro
+
+## Como rodar 
