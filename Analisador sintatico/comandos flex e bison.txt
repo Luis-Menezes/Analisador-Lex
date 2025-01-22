@@ -1,0 +1,27 @@
+comandos flex e bison
+
+comandos uso flex:
+
+flex nome arquivo.l
+gcc lex.yy.c -o teste -lfl
+teste < dadoEntrada1.txt
+
+comandos uso bison:
+
+bison -d arquivo.y
+flex arquivo.l
+gcc -c lex.yy.c
+g++ -o teste lex.yy.o calc.tab.c -lfl
+teste < entrada.txt (comando powershell)
+
+criar pasta GnuWin32
+lembrar de adicionar em nas duas path 
+C:\GnuWin32\bin
+
+
+bison -d syntax.y
+flex scanC-.l
+gcc -c lex.yy.c
+g++ -o teste lex.yy.o syntax.tab.c -lfl
+teste < entrada.txt 
+

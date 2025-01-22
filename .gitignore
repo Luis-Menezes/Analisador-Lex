@@ -1,1 +1,5 @@
 *.exe
+Analisador sintatico/lex.yy.o
+Analisador sintatico/lex.yy.c
+Analisador sintatico/syntax.tab.c
+Analisador sintatico/syntax.tab.h

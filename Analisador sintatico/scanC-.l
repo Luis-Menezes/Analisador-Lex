@@ -62,7 +62,7 @@ OUTRO [^a-zA-Z0-9_\s\+\-\*/<>=!;,{}\(\)\[\]\"\'/ ]
 
 %%
 
-int main(int argc, char *argv[])
+/* int main(int argc, char *argv[])
 {
   int token, i, buf[100000];
   FILE *f_in;
@@ -125,9 +125,9 @@ int main(int argc, char *argv[])
   printf("\nNumero total de linhas: %d", n_linha);
   return(0);
 
-  void abrirArq()
+} */
+void abrirArq()
 {
   yyin = fopen("entrada.txt", "r");
-}
 }
 

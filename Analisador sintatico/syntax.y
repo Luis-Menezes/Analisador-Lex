@@ -175,7 +175,7 @@ arg_lista:
 
 int main()
 {
-  printf("\nParser em execução...\n");
+  printf("\nParser em execucao...\n");
   abrirArq();
   return yyparse();
 }
@@ -183,5 +183,6 @@ int main()
 void yyerror(char * msg)
 {
   extern char* yytext;
-  printf("\n%s : %s %d\n", msg, yytext, yylval);
+  printf("Erro sintatico na linha %d: %s proximo a '%s'\n", n_linha, msg, yytext);
+
 }
