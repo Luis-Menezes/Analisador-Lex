@@ -4,13 +4,17 @@
 #include <string.h>
 
 extern int yylex();
-extern int contLinha;
-void yyerror(char *erroSint)
+extern int n_linha;
+
+extern int yylex(void);
+extern void abrirArq();
+
+void yyerror(char *erroSint);
 %}
 
 %token ELS IF INT RTN VOD WHL SOM SUB MUL DIV LT GT LEQ BEQ IGL DIF ATT
 %token PEV VRG APR FPR ACL FCL ACH FCH
-%token   ID NUM IDERR ERR 
+%token   ID NUM IDERROR ERR NL FIM
 
 %start entrada
 %left SOM SUB
@@ -81,8 +85,8 @@ statement:
     expressao_decl 
     | composto_decl
     | selecao_decl
-    | iteracao-decl
-    | retorno-decl
+    | iteracao_decl
+    | retorno_decl
     ;
 
 expressao_decl:
@@ -95,27 +99,27 @@ selecao_decl:
     | IF APR expressao FPR statement ELS statement
     ;
 
-iteracao-decl: 
+iteracao_decl: 
     WHL APR expressao FPR statement
     ;
 
-retorno-decl: 
+retorno_decl: 
     RTN PEV
     | RTN expressao
     ;
 
 expressao: 
     var ATT expressao
-    | simples-expressao
+    | simples_expressao
     ;
 
 var: 
     ID 
     | ID ACL expressao FCL
     ;
-simples-expressao: 
-    soma-expressao relacional soma-expressao
-    | soma-expressao
+simples_expressao: 
+    soma_expressao relacional soma_expressao
+    | soma_expressao
     ;
 
 relacional:
@@ -127,8 +131,8 @@ relacional:
     | DIF
     ;
 
-soma-expressao:
-    soma-expressao soma termo
+soma_expressao:
+    soma_expressao soma termo
     | termo
     ;
 
@@ -159,12 +163,25 @@ ativacao:
     ;
 
 args:
-    arg-lista
+    arg_lista
     | /* vazio */
     ;
 
-arg-lista: 
-    arg-lista VRG expressao
+arg_lista: 
+    arg_lista VRG expressao
     | declaracao
     ;
 %%
+
+int main()
+{
+  printf("\nParser em execução...\n");
+  abrirArq();
+  return yyparse();
+}
+
+void yyerror(char * msg)
+{
+  extern char* yytext;
+  printf("\n%s : %s %d\n", msg, yytext, yylval);
+}

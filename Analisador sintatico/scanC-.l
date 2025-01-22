@@ -124,5 +124,10 @@ int main(int argc, char *argv[])
   }
   printf("\nNumero total de linhas: %d", n_linha);
   return(0);
+
+  void abrirArq()
+{
+  yyin = fopen("entrada.txt", "r");
+}
 }
 
