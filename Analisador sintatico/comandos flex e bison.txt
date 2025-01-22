@@ -25,3 +25,4 @@ gcc -c lex.yy.c
 g++ -o teste lex.yy.o syntax.tab.c -lfl
 teste < entrada.txt 
 
+taylor swift
