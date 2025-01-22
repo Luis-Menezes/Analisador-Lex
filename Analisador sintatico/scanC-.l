@@ -1,39 +1,9 @@
 /* FALAR AQUI OS ERROS PFVR */
 %{
+#include "syntax.tab.h"
 #include <stdlib.h>
 #include <stdio.h>
 
-#define NUM 300
-#define ID  301
-#define SOM 302
-#define SUB 303
-#define MUL 304
-#define DIV 305
-#define ATT 306
-#define PEV 307
-#define APR 308
-#define FPR 309
-#define FIM 310
-#define ERR 311
-#define NL  312
-#define INT 313
-#define IF  318
-#define ELS 319
-#define VOD 325
-#define WHL 314
-#define RTN 315
-#define ACH 316
-#define FCH 317
-#define ACL 320
-#define FCL 321
-#define VRG 322
-#define GT  323
-#define LT  324
-#define LEQ 327
-#define BEQ 328
-#define IGL 329
-#define DIF 330
-#define IDERROR 331
 int n_linha = 1;
 
 %}

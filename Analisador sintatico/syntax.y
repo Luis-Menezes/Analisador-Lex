@@ -2,21 +2,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 extern int yylex();
 extern int contLinha;
-void yyerror(const char *erroSint)
+void yyerror(char *erroSint)
 %}
 
-%token ELSE IF INT RETURN VOID WHILE SOMA SUB MULT DIV MENOR MAIOR MEOI MAOI IGUAL DIF ATRI
-%token PVIR VIR APAR FPAR ACOL FCOL AKEY FKEY
-%token ID NUM NOMERR ERRO 
+%token ELS IF INT RTN VOD WHL SOM SUB MUL DIV LT GT LEQ BEQ IGL DIF ATT
+%token PEV VRG APR FPR ACL FCL ACH FCH
+%token   ID NUM IDERR ERR 
 
-%left SOMA SUB
-%left MULT DIV 
-%nonassoc MENOR MAIOR MEOI MAOI IGUAL DIF
+%start entrada
+%left SOM SUB
+%left MUL DIV 
+%nonassoc LT GT LEQ BEQ IGL DIF
 
 %%
-
+entrada :	/* entrada vazia */
+	| 	entrada programa;
 programa: 
     declaracao_lista
     ;
@@ -32,41 +35,41 @@ declaracao:
     ;
 
 var_declaracao:
-    tipo_especificador ID PVIR
-    | tipo_especificador ID ACOL NUM FCOL PVIR
+    tipo_especificador ID PEV
+    | tipo_especificador ID ACL NUM FCL PEV
     ;
 
 tipo_especificador:
     INT
-    | VOID 
+    | VOD 
     ;
 
 fun_declaracao:
-    tipo_especificador ID APAR params FPAR composto_decl
+    tipo_especificador ID APR params FPR composto_decl
     ;
 
 params: 
     param_lista 
-    | VOID
+    | VOD
     ;
 
 param_lista: 
-    param_lista VIR param 
+    param_lista VRG param 
     | param
     ;
 
 param:
     tipo_especificador ID 
-    | tipo_especificador ID ACOL FCOL
+    | tipo_especificador ID ACL FCL
     ;
 
 composto_decl:
-    AKEY local_declaracoes statement_lista FKEY
+    ACH local_declaracoes statement_lista FCH
     ;
 
 local_declaracoes:
     local_declaracoes var_declaracao
-    | 
+    | /* vazio */
     ;
 
 statement_lista:
@@ -83,32 +86,32 @@ statement:
     ;
 
 expressao_decl:
-    expressao PVIR
-    | PVIR
+    expressao PEV
+    | PEV
     ;
 
 selecao_decl:
-    IF APAR expressao FPAR statement
-    | IF APAR expressao FPAR statement ELSE statement
+    IF APR expressao FPR statement
+    | IF APR expressao FPR statement ELS statement
     ;
 
 iteracao-decl: 
-    WHILE APAR expressao FPAR statement
+    WHL APR expressao FPR statement
     ;
 
 retorno-decl: 
-    RETURN PVIR
-    | RETURN expressao
+    RTN PEV
+    | RTN expressao
     ;
 
 expressao: 
-    var ATRI expressao
+    var ATT expressao
     | simples-expressao
     ;
 
 var: 
     ID 
-    | ID ACOL expressao FCOL
+    | ID ACL expressao FCL
     ;
 simples-expressao: 
     soma-expressao relacional soma-expressao
@@ -116,11 +119,11 @@ simples-expressao:
     ;
 
 relacional:
-    MEOI
-    | MENOR
-    | MAIOR
-    | MAOI
-    | IGUAL
+    LEQ
+    | LT
+    | GT
+    | BEQ
+    | IGL
     | DIF
     ;
 
@@ -130,7 +133,7 @@ soma-expressao:
     ;
 
 soma:
-    SOMA
+    SOM
     | SUB
     ;
 
@@ -140,19 +143,19 @@ termo:
     ;
 
 mult:
-    MULT
+    MUL
     | DIV
     ;
 
 fator:
-    APAR expressao FPAR 
+    APR expressao FPR 
     | var 
     | ativacao
     | NUM
     ;
 
 ativacao:
-    ID APAR args FPAR
+    ID APR args FPR
     ;
 
 args:
@@ -161,7 +164,7 @@ args:
     ;
 
 arg-lista: 
-    arg-lista VIR expressao
+    arg-lista VRG expressao
     | declaracao
     ;
 %%
