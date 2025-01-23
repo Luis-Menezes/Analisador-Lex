@@ -169,7 +169,7 @@ args:
 
 arg_lista: 
     arg_lista VRG expressao
-    | declaracao
+    | expressao
     ;
 %%
 
