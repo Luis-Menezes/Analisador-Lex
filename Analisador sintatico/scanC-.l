@@ -38,7 +38,7 @@ OUTRO [^a-zA-Z0-9_\s\+\-\*/<>=!;,{}\(\)\[\]\"\'/ ]
 ">="            return BEQ;
 ,               return VRG;
 <<EOF>>         return FIM;
-{NOVALINHA}     {n_linha++; return NL;} 
+{NOVALINHA}     {n_linha++;} 
 [\t]+ 		      ;
 "if"            return IF;
 "else"          return ELS;
@@ -130,4 +130,38 @@ void abrirArq()
 {
   yyin = fopen("entrada.txt", "r");
 }
-
+void imprimirToken(int token){
+	 switch(token)
+    {
+      case NUM: printf("NUM ");     break;
+      case ID:  printf("ID ");      break;
+      case IGL: printf("IGL ");     break;
+	    case DIF: printf("DIF ");		break;
+      case SOM: printf("+ ");       break;
+      case SUB: printf("- ");       break;
+      case MUL: printf("* ");       break;
+      case DIV: printf("/ ");       break;
+      case ATT: printf(" ATT ");      break;
+      case PEV: printf("; ");       break;
+      case VRG: printf(", ");       break;
+      case APR: printf("( ");       break;
+      case FPR: printf(") ");       break;
+      case GT:  printf("> ");       break;
+      case LT:  printf("< ");       break;
+      case NL:  printf("\n");    break;
+      case ERR: printf("ERR");     break;
+      case INT: printf("INT ");     break;
+      case RTN: printf("RETURN ");  break;
+      case VOD: printf("VOID ");    break;
+      case WHL: printf("WHILE ");   break;
+      case IF:  printf("IF ");      break;
+      case ELS: printf("ELSE ");    break;
+      case FCH: printf("}");        break;
+      case ACH: printf("{ ");       break;
+      case FCL: printf("] ");       break;
+      case ACL: printf("[ ");       break;
+      case LEQ: printf("<= ");       break;
+      case BEQ: printf(">= ");        break;
+      case IDERROR: printf("IDERR");   break;
+    }
+}

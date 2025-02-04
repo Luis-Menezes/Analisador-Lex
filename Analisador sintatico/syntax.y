@@ -4,33 +4,35 @@
 #include <string.h>
 
 extern int yylex();
-extern int n_linha;
+extern int n_linha, contErros;
 
 extern int yylex(void);
 extern void abrirArq();
+extern void imprimirToken();
 
 void yyerror(char *erroSint);
 %}
+%start entrada
 
 %token ELS IF INT RTN VOD WHL SOM SUB MUL DIV LT GT LEQ BEQ IGL DIF ATT
 %token PEV VRG APR FPR ACL FCL ACH FCH
 %token   ID NUM IDERROR ERR NL FIM
 
-%start entrada
 %left SOM SUB
 %left MUL DIV 
 %nonassoc LT GT LEQ BEQ IGL DIF
 
 %%
 entrada :	/* entrada vazia */
-	| 	entrada programa;
+	| 	entrada programa 
+    ;
 programa: 
     declaracao_lista
     ;
 
 declaracao_lista:
-    declaracao_lista declaracao 
-    | declaracao
+    declaracao_lista declaracao
+    | declaracao 
     ;
 
 declaracao:
@@ -39,8 +41,12 @@ declaracao:
     ;
 
 var_declaracao:
-    tipo_especificador ID PEV
-    | tipo_especificador ID ACL NUM FCL PEV
+    INT ID PEV
+    | INT ID ACL NUM FCL PEV
+    ;
+
+fun_declaracao:
+    tipo_especificador ID APR params FPR composto_decl
     ;
 
 tipo_especificador:
@@ -48,9 +54,6 @@ tipo_especificador:
     | VOD 
     ;
 
-fun_declaracao:
-    tipo_especificador ID APR params FPR composto_decl
-    ;
 
 params: 
     param_lista 
@@ -105,7 +108,7 @@ iteracao_decl:
 
 retorno_decl: 
     RTN PEV
-    | RTN expressao
+    | RTN expressao PEV
     ;
 
 expressao: 
@@ -177,6 +180,7 @@ int main()
 {
   printf("\nParser em execucao...\n");
   abrirArq();
+  imprimirToken();
   return yyparse();
 }
 
