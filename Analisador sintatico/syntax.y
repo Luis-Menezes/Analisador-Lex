@@ -3,6 +3,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+
+
+extern char *yytext;
+
 extern int yylex();
 extern int n_linha, contErros;
 
@@ -12,6 +16,7 @@ extern void imprimirToken();
 
 void yyerror(char *erroSint);
 %}
+
 %start entrada
 
 %token ELS IF INT RTN VOD WHL SOM SUB MUL DIV LT GT LEQ BEQ IGL DIF ATT
@@ -21,6 +26,8 @@ void yyerror(char *erroSint);
 %left SOM SUB
 %left MUL DIV 
 %nonassoc LT GT LEQ BEQ IGL DIF
+
+
 
 %%
 entrada :	/* entrada vazia */
@@ -176,17 +183,18 @@ arg_lista:
     ;
 %%
 
-int main()
+int main(int argc, char *argv[])
 {
-  printf("\nParser em execucao...\n");
-  abrirArq();
-  imprimirToken();
-  return yyparse();
+    printf("\nParser em execucao...\n");
+    abrirArq(argv[1]);
+    
+    int resultado = yyparse();
+    return resultado;
 }
 
 void yyerror(char * msg)
 {
-  extern char* yytext;
-  printf("Erro sintatico na linha %d: %s proximo a '%s'\n", n_linha, msg, yytext);
+    /*coloquei o yytext no comeco do codigo*/
+  printf("Erro sintatico na linha %d: %s antes de '%s'\n", n_linha, msg, yytext);
 
 }

@@ -24,8 +24,8 @@ OUTRO [^a-zA-Z0-9_\s\+\-\*/<>=!;,{}\(\)\[\]\"\'/ ]
 "/"				return DIV;
 "=="          	return IGL;
 "!="			return DIF;
-=				return ATT;
-;				return PEV;
+"="				return ATT;
+";"				return PEV;
 "("				return APR;
 ")"				return FPR;
 "{"             return ACH;
@@ -36,7 +36,7 @@ OUTRO [^a-zA-Z0-9_\s\+\-\*/<>=!;,{}\(\)\[\]\"\'/ ]
 ">"             return GT;
 "<="            return LEQ;
 ">="            return BEQ;
-,               return VRG;
+","             return VRG;
 <<EOF>>         return FIM;
 {NOVALINHA}     {n_linha++;} 
 [\t]+ 		      ;
@@ -62,7 +62,7 @@ OUTRO [^a-zA-Z0-9_\s\+\-\*/<>=!;,{}\(\)\[\]\"\'/ ]
 
 %%
 
-/* int main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
   int token, i, buf[100000];
   FILE *f_in;
@@ -104,7 +104,7 @@ OUTRO [^a-zA-Z0-9_\s\+\-\*/<>=!;,{}\(\)\[\]\"\'/ ]
       case FPR: printf(") ");       break;
       case GT:  printf("> ");       break;
       case LT:  printf("< ");       break;
-      case NL:  printf("\n");    break;
+      case NL:  printf("NOVALINHA");    break;
       case ERR: printf("ERR");     break;
       case INT: printf("INT ");     break;
       case RTN: printf("RETURN ");  break;
@@ -125,11 +125,15 @@ OUTRO [^a-zA-Z0-9_\s\+\-\*/<>=!;,{}\(\)\[\]\"\'/ ]
   printf("\nNumero total de linhas: %d", n_linha);
   return(0);
 
-} */
-void abrirArq()
-{
-  yyin = fopen("entrada.txt", "r");
 }
+void abrirArq(const char *nomeArquivo) {
+    yyin = fopen(nomeArquivo, "r");
+    if (!yyin) {
+        perror("Erro ao abrir o arquivo");
+        exit(1);
+    }
+}
+
 void imprimirToken(int token){
 	 switch(token)
     {
