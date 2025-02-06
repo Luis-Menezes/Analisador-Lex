@@ -19,9 +19,10 @@ void yyerror(char *erroSint);
 
 %start entrada
 
-%token ELS IF INT RTN VOD WHL SOM SUB MUL DIV LT GT LEQ BEQ IGL DIF ATT
+%token ELS IF INT RTN VOD WHL 
+%token SOM SUB MUL DIV LT GT LEQ BEQ IGL DIF ATT
 %token PEV VRG APR FPR ACL FCL ACH FCH
-%token   ID NUM IDERROR ERR NL FIM
+%token ID NUM IDERROR ERR NL FIM
 
 %left SOM SUB
 %left MUL DIV 
@@ -48,8 +49,8 @@ declaracao:
     ;
 
 var_declaracao:
-    INT ID PEV
-    | INT ID ACL NUM FCL PEV
+    tipo_especificador ID PEV
+    | tipo_especificador ID ACL NUM FCL PEV
     ;
 
 fun_declaracao:
@@ -189,6 +190,9 @@ int main(int argc, char *argv[])
     abrirArq(argv[1]);
     
     int resultado = yyparse();
+    if(!resultado){
+        printf("Analise sintatica e lexica concluida com sucesso!\n");
+    }
     return resultado;
 }
 

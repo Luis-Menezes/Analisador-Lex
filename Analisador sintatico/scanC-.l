@@ -37,7 +37,6 @@ OUTRO [^a-zA-Z0-9_\s\+\-\*/<>=!;,{}\(\)\[\]\"\'/ ]
 "<="            return LEQ;
 ">="            return BEQ;
 ","             return VRG;
-<<EOF>>         return FIM;
 {NOVALINHA}     {n_linha++;} 
 [\t]+ 		      ;
 "if"            return IF;
@@ -50,6 +49,7 @@ OUTRO [^a-zA-Z0-9_\s\+\-\*/<>=!;,{}\(\)\[\]\"\'/ ]
                 do{
                   c = input();
                   if(c == EOF) return ERR;
+                  if(c == '\n') n_linha++;
                   if(c=='*'){
                     if(input()=='/')  break;
                   }
@@ -61,7 +61,7 @@ OUTRO [^a-zA-Z0-9_\s\+\-\*/<>=!;,{}\(\)\[\]\"\'/ ]
 
 
 %%
-
+/* 
 int main(int argc, char *argv[])
 {
   int token, i, buf[100000];
@@ -125,7 +125,7 @@ int main(int argc, char *argv[])
   printf("\nNumero total de linhas: %d", n_linha);
   return(0);
 
-}
+} */
 void abrirArq(const char *nomeArquivo) {
     yyin = fopen(nomeArquivo, "r");
     if (!yyin) {
@@ -134,7 +134,7 @@ void abrirArq(const char *nomeArquivo) {
     }
 }
 
-void imprimirToken(int token){
+/* void imprimirToken(int token){
 	 switch(token)
     {
       case NUM: printf("NUM ");     break;
@@ -168,4 +168,4 @@ void imprimirToken(int token){
       case BEQ: printf(">= ");        break;
       case IDERROR: printf("IDERR");   break;
     }
-}
+} */
