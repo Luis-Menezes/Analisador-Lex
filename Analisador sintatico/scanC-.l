@@ -56,8 +56,8 @@ OUTRO [^a-zA-Z0-9_\s\+\-\*/<>=!;,{}\(\)\[\]\"\'/ ]
                 }while(c!=EOF);
 } 
 {LETRA}{LETRA}*	return ID;
-{IDERR}         {printf("Erro lexico no identificador da linha: %d \n", n_linha); return IDERROR;}
-{OUTRO}+			  {printf("Erro lexico na linha: %d \n", n_linha);return ERR;};
+{IDERR}         {printf("Erro lexico no identificador '%s' da linha: %d \n", yytext, n_linha); return IDERROR;}
+{OUTRO}+			  {printf("Erro lexico na expressao '%s' na linha: %d \n", yytext, n_linha);return ERR;};
 
 
 %%

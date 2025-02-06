@@ -198,7 +198,6 @@ int main(int argc, char *argv[])
 
 void yyerror(char * msg)
 {
-    /*coloquei o yytext no comeco do codigo*/
+    /*talvez a gente possa usar essa função pra ele não chorar se o erro for léxico*/
   printf("Erro sintatico na linha %d: %s antes de '%s'\n", n_linha, msg, yytext);
-
 }

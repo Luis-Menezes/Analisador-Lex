@@ -1,0 +1,1240 @@
+Terminals unused in grammar
+
+   IDERROR
+   ERR
+   NL
+   FIM
+
+
+State 6 conflicts: 2 shift/reduce
+State 98 conflicts: 1 shift/reduce
+
+
+Grammar
+
+    0 $accept: entrada $end
+
+    1 entrada: /* empty */
+    2        | entrada programa
+
+    3 programa: declaracao_lista
+
+    4 declaracao_lista: declaracao_lista declaracao
+    5                 | declaracao
+
+    6 declaracao: var_declaracao
+    7           | fun_declaracao
+
+    8 var_declaracao: tipo_especificador ID PEV
+    9               | tipo_especificador ID ACL NUM FCL PEV
+
+   10 fun_declaracao: tipo_especificador ID APR params FPR composto_decl
+
+   11 tipo_especificador: INT
+   12                   | VOD
+
+   13 params: param_lista
+   14       | VOD
+
+   15 param_lista: param_lista VRG param
+   16            | param
+
+   17 param: tipo_especificador ID
+   18      | tipo_especificador ID ACL FCL
+
+   19 composto_decl: ACH local_declaracoes statement_lista FCH
+
+   20 local_declaracoes: local_declaracoes var_declaracao
+   21                  | /* empty */
+
+   22 statement_lista: statement_lista statement
+   23                | /* empty */
+
+   24 statement: expressao_decl
+   25          | composto_decl
+   26          | selecao_decl
+   27          | iteracao_decl
+   28          | retorno_decl
+
+   29 expressao_decl: expressao PEV
+   30               | PEV
+
+   31 selecao_decl: IF APR expressao FPR statement
+   32             | IF APR expressao FPR statement ELS statement
+
+   33 iteracao_decl: WHL APR expressao FPR statement
+
+   34 retorno_decl: RTN PEV
+   35             | RTN expressao PEV
+
+   36 expressao: var ATT expressao
+   37          | simples_expressao
+
+   38 var: ID
+   39    | ID ACL expressao FCL
+
+   40 simples_expressao: soma_expressao relacional soma_expressao
+   41                  | soma_expressao
+
+   42 relacional: LEQ
+   43           | LT
+   44           | GT
+   45           | BEQ
+   46           | IGL
+   47           | DIF
+
+   48 soma_expressao: soma_expressao soma termo
+   49               | termo
+
+   50 soma: SOM
+   51     | SUB
+
+   52 termo: termo mult fator
+   53      | fator
+
+   54 mult: MUL
+   55     | DIV
+
+   56 fator: APR expressao FPR
+   57      | var
+   58      | ativacao
+   59      | NUM
+
+   60 ativacao: ID APR args FPR
+
+   61 args: arg_lista
+   62     | /* empty */
+
+   63 arg_lista: arg_lista VRG expressao
+   64          | expressao
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+ELS (258) 32
+IF (259) 31 32
+INT (260) 11
+RTN (261) 34 35
+VOD (262) 12 14
+WHL (263) 33
+SOM (264) 50
+SUB (265) 51
+MUL (266) 54
+DIV (267) 55
+LT (268) 43
+GT (269) 44
+LEQ (270) 42
+BEQ (271) 45
+IGL (272) 46
+DIF (273) 47
+ATT (274) 36
+PEV (275) 8 9 29 30 34 35
+VRG (276) 15 63
+APR (277) 10 31 32 33 56 60
+FPR (278) 10 31 32 33 56 60
+ACL (279) 9 18 39
+FCL (280) 9 18 39
+ACH (281) 19
+FCH (282) 19
+ID (283) 8 9 10 17 18 38 39 60
+NUM (284) 9 59
+IDERROR (285)
+ERR (286)
+NL (287)
+FIM (288)
+
+
+Nonterminals, with rules where they appear
+
+$accept (34)
+    on left: 0
+entrada (35)
+    on left: 1 2, on right: 0 2
+programa (36)
+    on left: 3, on right: 2
+declaracao_lista (37)
+    on left: 4 5, on right: 3 4
+declaracao (38)
+    on left: 6 7, on right: 4 5
+var_declaracao (39)
+    on left: 8 9, on right: 6 20
+fun_declaracao (40)
+    on left: 10, on right: 7
+tipo_especificador (41)
+    on left: 11 12, on right: 8 9 10 17 18
+params (42)
+    on left: 13 14, on right: 10
+param_lista (43)
+    on left: 15 16, on right: 13 15
+param (44)
+    on left: 17 18, on right: 15 16
+composto_decl (45)
+    on left: 19, on right: 10 25
+local_declaracoes (46)
+    on left: 20 21, on right: 19 20
+statement_lista (47)
+    on left: 22 23, on right: 19 22
+statement (48)
+    on left: 24 25 26 27 28, on right: 22 31 32 33
+expressao_decl (49)
+    on left: 29 30, on right: 24
+selecao_decl (50)
+    on left: 31 32, on right: 26
+iteracao_decl (51)
+    on left: 33, on right: 27
+retorno_decl (52)
+    on left: 34 35, on right: 28
+expressao (53)
+    on left: 36 37, on right: 29 31 32 33 35 36 39 56 63 64
+var (54)
+    on left: 38 39, on right: 36 57
+simples_expressao (55)
+    on left: 40 41, on right: 37
+relacional (56)
+    on left: 42 43 44 45 46 47, on right: 40
+soma_expressao (57)
+    on left: 48 49, on right: 40 41 48
+soma (58)
+    on left: 50 51, on right: 48
+termo (59)
+    on left: 52 53, on right: 48 49 52
+mult (60)
+    on left: 54 55, on right: 52
+fator (61)
+    on left: 56 57 58 59, on right: 52 53
+ativacao (62)
+    on left: 60, on right: 58
+args (63)
+    on left: 61 62, on right: 60
+arg_lista (64)
+    on left: 63 64, on right: 61 63
+
+
+state 0
+
+    0 $accept: . entrada $end
+
+    $default  reduce using rule 1 (entrada)
+
+    entrada  go to state 1
+
+
+state 1
+
+    0 $accept: entrada . $end
+    2 entrada: entrada . programa
+
+    $end  shift, and go to state 2
+    INT   shift, and go to state 3
+    VOD   shift, and go to state 4
+
+    programa            go to state 5
+    declaracao_lista    go to state 6
+    declaracao          go to state 7
+    var_declaracao      go to state 8
+    fun_declaracao      go to state 9
+    tipo_especificador  go to state 10
+
+
+state 2
+
+    0 $accept: entrada $end .
+
+    $default  accept
+
+
+state 3
+
+   11 tipo_especificador: INT .
+
+    $default  reduce using rule 11 (tipo_especificador)
+
+
+state 4
+
+   12 tipo_especificador: VOD .
+
+    $default  reduce using rule 12 (tipo_especificador)
+
+
+state 5
+
+    2 entrada: entrada programa .
+
+    $default  reduce using rule 2 (entrada)
+
+
+state 6
+
+    3 programa: declaracao_lista .
+    4 declaracao_lista: declaracao_lista . declaracao
+
+    INT  shift, and go to state 3
+    VOD  shift, and go to state 4
+
+    INT       [reduce using rule 3 (programa)]
+    VOD       [reduce using rule 3 (programa)]
+    $default  reduce using rule 3 (programa)
+
+    declaracao          go to state 11
+    var_declaracao      go to state 8
+    fun_declaracao      go to state 9
+    tipo_especificador  go to state 10
+
+
+state 7
+
+    5 declaracao_lista: declaracao .
+
+    $default  reduce using rule 5 (declaracao_lista)
+
+
+state 8
+
+    6 declaracao: var_declaracao .
+
+    $default  reduce using rule 6 (declaracao)
+
+
+state 9
+
+    7 declaracao: fun_declaracao .
+
+    $default  reduce using rule 7 (declaracao)
+
+
+state 10
+
+    8 var_declaracao: tipo_especificador . ID PEV
+    9               | tipo_especificador . ID ACL NUM FCL PEV
+   10 fun_declaracao: tipo_especificador . ID APR params FPR composto_decl
+
+    ID  shift, and go to state 12
+
+
+state 11
+
+    4 declaracao_lista: declaracao_lista declaracao .
+
+    $default  reduce using rule 4 (declaracao_lista)
+
+
+state 12
+
+    8 var_declaracao: tipo_especificador ID . PEV
+    9               | tipo_especificador ID . ACL NUM FCL PEV
+   10 fun_declaracao: tipo_especificador ID . APR params FPR composto_decl
+
+    PEV  shift, and go to state 13
+    APR  shift, and go to state 14
+    ACL  shift, and go to state 15
+
+
+state 13
+
+    8 var_declaracao: tipo_especificador ID PEV .
+
+    $default  reduce using rule 8 (var_declaracao)
+
+
+state 14
+
+   10 fun_declaracao: tipo_especificador ID APR . params FPR composto_decl
+
+    INT  shift, and go to state 3
+    VOD  shift, and go to state 16
+
+    tipo_especificador  go to state 17
+    params              go to state 18
+    param_lista         go to state 19
+    param               go to state 20
+
+
+state 15
+
+    9 var_declaracao: tipo_especificador ID ACL . NUM FCL PEV
+
+    NUM  shift, and go to state 21
+
+
+state 16
+
+   12 tipo_especificador: VOD .
+   14 params: VOD .
+
+    FPR       reduce using rule 14 (params)
+    $default  reduce using rule 12 (tipo_especificador)
+
+
+state 17
+
+   17 param: tipo_especificador . ID
+   18      | tipo_especificador . ID ACL FCL
+
+    ID  shift, and go to state 22
+
+
+state 18
+
+   10 fun_declaracao: tipo_especificador ID APR params . FPR composto_decl
+
+    FPR  shift, and go to state 23
+
+
+state 19
+
+   13 params: param_lista .
+   15 param_lista: param_lista . VRG param
+
+    VRG  shift, and go to state 24
+
+    $default  reduce using rule 13 (params)
+
+
+state 20
+
+   16 param_lista: param .
+
+    $default  reduce using rule 16 (param_lista)
+
+
+state 21
+
+    9 var_declaracao: tipo_especificador ID ACL NUM . FCL PEV
+
+    FCL  shift, and go to state 25
+
+
+state 22
+
+   17 param: tipo_especificador ID .
+   18      | tipo_especificador ID . ACL FCL
+
+    ACL  shift, and go to state 26
+
+    $default  reduce using rule 17 (param)
+
+
+state 23
+
+   10 fun_declaracao: tipo_especificador ID APR params FPR . composto_decl
+
+    ACH  shift, and go to state 27
+
+    composto_decl  go to state 28
+
+
+state 24
+
+   15 param_lista: param_lista VRG . param
+
+    INT  shift, and go to state 3
+    VOD  shift, and go to state 4
+
+    tipo_especificador  go to state 17
+    param               go to state 29
+
+
+state 25
+
+    9 var_declaracao: tipo_especificador ID ACL NUM FCL . PEV
+
+    PEV  shift, and go to state 30
+
+
+state 26
+
+   18 param: tipo_especificador ID ACL . FCL
+
+    FCL  shift, and go to state 31
+
+
+state 27
+
+   19 composto_decl: ACH . local_declaracoes statement_lista FCH
+
+    $default  reduce using rule 21 (local_declaracoes)
+
+    local_declaracoes  go to state 32
+
+
+state 28
+
+   10 fun_declaracao: tipo_especificador ID APR params FPR composto_decl .
+
+    $default  reduce using rule 10 (fun_declaracao)
+
+
+state 29
+
+   15 param_lista: param_lista VRG param .
+
+    $default  reduce using rule 15 (param_lista)
+
+
+state 30
+
+    9 var_declaracao: tipo_especificador ID ACL NUM FCL PEV .
+
+    $default  reduce using rule 9 (var_declaracao)
+
+
+state 31
+
+   18 param: tipo_especificador ID ACL FCL .
+
+    $default  reduce using rule 18 (param)
+
+
+state 32
+
+   19 composto_decl: ACH local_declaracoes . statement_lista FCH
+   20 local_declaracoes: local_declaracoes . var_declaracao
+
+    INT  shift, and go to state 3
+    VOD  shift, and go to state 4
+
+    $default  reduce using rule 23 (statement_lista)
+
+    var_declaracao      go to state 33
+    tipo_especificador  go to state 34
+    statement_lista     go to state 35
+
+
+state 33
+
+   20 local_declaracoes: local_declaracoes var_declaracao .
+
+    $default  reduce using rule 20 (local_declaracoes)
+
+
+state 34
+
+    8 var_declaracao: tipo_especificador . ID PEV
+    9               | tipo_especificador . ID ACL NUM FCL PEV
+
+    ID  shift, and go to state 36
+
+
+state 35
+
+   19 composto_decl: ACH local_declaracoes statement_lista . FCH
+   22 statement_lista: statement_lista . statement
+
+    IF   shift, and go to state 37
+    RTN  shift, and go to state 38
+    WHL  shift, and go to state 39
+    PEV  shift, and go to state 40
+    APR  shift, and go to state 41
+    ACH  shift, and go to state 27
+    FCH  shift, and go to state 42
+    ID   shift, and go to state 43
+    NUM  shift, and go to state 44
+
+    composto_decl      go to state 45
+    statement          go to state 46
+    expressao_decl     go to state 47
+    selecao_decl       go to state 48
+    iteracao_decl      go to state 49
+    retorno_decl       go to state 50
+    expressao          go to state 51
+    var                go to state 52
+    simples_expressao  go to state 53
+    soma_expressao     go to state 54
+    termo              go to state 55
+    fator              go to state 56
+    ativacao           go to state 57
+
+
+state 36
+
+    8 var_declaracao: tipo_especificador ID . PEV
+    9               | tipo_especificador ID . ACL NUM FCL PEV
+
+    PEV  shift, and go to state 13
+    ACL  shift, and go to state 15
+
+
+state 37
+
+   31 selecao_decl: IF . APR expressao FPR statement
+   32             | IF . APR expressao FPR statement ELS statement
+
+    APR  shift, and go to state 58
+
+
+state 38
+
+   34 retorno_decl: RTN . PEV
+   35             | RTN . expressao PEV
+
+    PEV  shift, and go to state 59
+    APR  shift, and go to state 41
+    ID   shift, and go to state 43
+    NUM  shift, and go to state 44
+
+    expressao          go to state 60
+    var                go to state 52
+    simples_expressao  go to state 53
+    soma_expressao     go to state 54
+    termo              go to state 55
+    fator              go to state 56
+    ativacao           go to state 57
+
+
+state 39
+
+   33 iteracao_decl: WHL . APR expressao FPR statement
+
+    APR  shift, and go to state 61
+
+
+state 40
+
+   30 expressao_decl: PEV .
+
+    $default  reduce using rule 30 (expressao_decl)
+
+
+state 41
+
+   56 fator: APR . expressao FPR
+
+    APR  shift, and go to state 41
+    ID   shift, and go to state 43
+    NUM  shift, and go to state 44
+
+    expressao          go to state 62
+    var                go to state 52
+    simples_expressao  go to state 53
+    soma_expressao     go to state 54
+    termo              go to state 55
+    fator              go to state 56
+    ativacao           go to state 57
+
+
+state 42
+
+   19 composto_decl: ACH local_declaracoes statement_lista FCH .
+
+    $default  reduce using rule 19 (composto_decl)
+
+
+state 43
+
+   38 var: ID .
+   39    | ID . ACL expressao FCL
+   60 ativacao: ID . APR args FPR
+
+    APR  shift, and go to state 63
+    ACL  shift, and go to state 64
+
+    $default  reduce using rule 38 (var)
+
+
+state 44
+
+   59 fator: NUM .
+
+    $default  reduce using rule 59 (fator)
+
+
+state 45
+
+   25 statement: composto_decl .
+
+    $default  reduce using rule 25 (statement)
+
+
+state 46
+
+   22 statement_lista: statement_lista statement .
+
+    $default  reduce using rule 22 (statement_lista)
+
+
+state 47
+
+   24 statement: expressao_decl .
+
+    $default  reduce using rule 24 (statement)
+
+
+state 48
+
+   26 statement: selecao_decl .
+
+    $default  reduce using rule 26 (statement)
+
+
+state 49
+
+   27 statement: iteracao_decl .
+
+    $default  reduce using rule 27 (statement)
+
+
+state 50
+
+   28 statement: retorno_decl .
+
+    $default  reduce using rule 28 (statement)
+
+
+state 51
+
+   29 expressao_decl: expressao . PEV
+
+    PEV  shift, and go to state 65
+
+
+state 52
+
+   36 expressao: var . ATT expressao
+   57 fator: var .
+
+    ATT  shift, and go to state 66
+
+    $default  reduce using rule 57 (fator)
+
+
+state 53
+
+   37 expressao: simples_expressao .
+
+    $default  reduce using rule 37 (expressao)
+
+
+state 54
+
+   40 simples_expressao: soma_expressao . relacional soma_expressao
+   41                  | soma_expressao .
+   48 soma_expressao: soma_expressao . soma termo
+
+    SOM  shift, and go to state 67
+    SUB  shift, and go to state 68
+    LT   shift, and go to state 69
+    GT   shift, and go to state 70
+    LEQ  shift, and go to state 71
+    BEQ  shift, and go to state 72
+    IGL  shift, and go to state 73
+    DIF  shift, and go to state 74
+
+    $default  reduce using rule 41 (simples_expressao)
+
+    relacional  go to state 75
+    soma        go to state 76
+
+
+state 55
+
+   49 soma_expressao: termo .
+   52 termo: termo . mult fator
+
+    MUL  shift, and go to state 77
+    DIV  shift, and go to state 78
+
+    $default  reduce using rule 49 (soma_expressao)
+
+    mult  go to state 79
+
+
+state 56
+
+   53 termo: fator .
+
+    $default  reduce using rule 53 (termo)
+
+
+state 57
+
+   58 fator: ativacao .
+
+    $default  reduce using rule 58 (fator)
+
+
+state 58
+
+   31 selecao_decl: IF APR . expressao FPR statement
+   32             | IF APR . expressao FPR statement ELS statement
+
+    APR  shift, and go to state 41
+    ID   shift, and go to state 43
+    NUM  shift, and go to state 44
+
+    expressao          go to state 80
+    var                go to state 52
+    simples_expressao  go to state 53
+    soma_expressao     go to state 54
+    termo              go to state 55
+    fator              go to state 56
+    ativacao           go to state 57
+
+
+state 59
+
+   34 retorno_decl: RTN PEV .
+
+    $default  reduce using rule 34 (retorno_decl)
+
+
+state 60
+
+   35 retorno_decl: RTN expressao . PEV
+
+    PEV  shift, and go to state 81
+
+
+state 61
+
+   33 iteracao_decl: WHL APR . expressao FPR statement
+
+    APR  shift, and go to state 41
+    ID   shift, and go to state 43
+    NUM  shift, and go to state 44
+
+    expressao          go to state 82
+    var                go to state 52
+    simples_expressao  go to state 53
+    soma_expressao     go to state 54
+    termo              go to state 55
+    fator              go to state 56
+    ativacao           go to state 57
+
+
+state 62
+
+   56 fator: APR expressao . FPR
+
+    FPR  shift, and go to state 83
+
+
+state 63
+
+   60 ativacao: ID APR . args FPR
+
+    APR  shift, and go to state 41
+    ID   shift, and go to state 43
+    NUM  shift, and go to state 44
+
+    $default  reduce using rule 62 (args)
+
+    expressao          go to state 84
+    var                go to state 52
+    simples_expressao  go to state 53
+    soma_expressao     go to state 54
+    termo              go to state 55
+    fator              go to state 56
+    ativacao           go to state 57
+    args               go to state 85
+    arg_lista          go to state 86
+
+
+state 64
+
+   39 var: ID ACL . expressao FCL
+
+    APR  shift, and go to state 41
+    ID   shift, and go to state 43
+    NUM  shift, and go to state 44
+
+    expressao          go to state 87
+    var                go to state 52
+    simples_expressao  go to state 53
+    soma_expressao     go to state 54
+    termo              go to state 55
+    fator              go to state 56
+    ativacao           go to state 57
+
+
+state 65
+
+   29 expressao_decl: expressao PEV .
+
+    $default  reduce using rule 29 (expressao_decl)
+
+
+state 66
+
+   36 expressao: var ATT . expressao
+
+    APR  shift, and go to state 41
+    ID   shift, and go to state 43
+    NUM  shift, and go to state 44
+
+    expressao          go to state 88
+    var                go to state 52
+    simples_expressao  go to state 53
+    soma_expressao     go to state 54
+    termo              go to state 55
+    fator              go to state 56
+    ativacao           go to state 57
+
+
+state 67
+
+   50 soma: SOM .
+
+    $default  reduce using rule 50 (soma)
+
+
+state 68
+
+   51 soma: SUB .
+
+    $default  reduce using rule 51 (soma)
+
+
+state 69
+
+   43 relacional: LT .
+
+    $default  reduce using rule 43 (relacional)
+
+
+state 70
+
+   44 relacional: GT .
+
+    $default  reduce using rule 44 (relacional)
+
+
+state 71
+
+   42 relacional: LEQ .
+
+    $default  reduce using rule 42 (relacional)
+
+
+state 72
+
+   45 relacional: BEQ .
+
+    $default  reduce using rule 45 (relacional)
+
+
+state 73
+
+   46 relacional: IGL .
+
+    $default  reduce using rule 46 (relacional)
+
+
+state 74
+
+   47 relacional: DIF .
+
+    $default  reduce using rule 47 (relacional)
+
+
+state 75
+
+   40 simples_expressao: soma_expressao relacional . soma_expressao
+
+    APR  shift, and go to state 41
+    ID   shift, and go to state 43
+    NUM  shift, and go to state 44
+
+    var             go to state 89
+    soma_expressao  go to state 90
+    termo           go to state 55
+    fator           go to state 56
+    ativacao        go to state 57
+
+
+state 76
+
+   48 soma_expressao: soma_expressao soma . termo
+
+    APR  shift, and go to state 41
+    ID   shift, and go to state 43
+    NUM  shift, and go to state 44
+
+    var       go to state 89
+    termo     go to state 91
+    fator     go to state 56
+    ativacao  go to state 57
+
+
+state 77
+
+   54 mult: MUL .
+
+    $default  reduce using rule 54 (mult)
+
+
+state 78
+
+   55 mult: DIV .
+
+    $default  reduce using rule 55 (mult)
+
+
+state 79
+
+   52 termo: termo mult . fator
+
+    APR  shift, and go to state 41
+    ID   shift, and go to state 43
+    NUM  shift, and go to state 44
+
+    var       go to state 89
+    fator     go to state 92
+    ativacao  go to state 57
+
+
+state 80
+
+   31 selecao_decl: IF APR expressao . FPR statement
+   32             | IF APR expressao . FPR statement ELS statement
+
+    FPR  shift, and go to state 93
+
+
+state 81
+
+   35 retorno_decl: RTN expressao PEV .
+
+    $default  reduce using rule 35 (retorno_decl)
+
+
+state 82
+
+   33 iteracao_decl: WHL APR expressao . FPR statement
+
+    FPR  shift, and go to state 94
+
+
+state 83
+
+   56 fator: APR expressao FPR .
+
+    $default  reduce using rule 56 (fator)
+
+
+state 84
+
+   64 arg_lista: expressao .
+
+    $default  reduce using rule 64 (arg_lista)
+
+
+state 85
+
+   60 ativacao: ID APR args . FPR
+
+    FPR  shift, and go to state 95
+
+
+state 86
+
+   61 args: arg_lista .
+   63 arg_lista: arg_lista . VRG expressao
+
+    VRG  shift, and go to state 96
+
+    $default  reduce using rule 61 (args)
+
+
+state 87
+
+   39 var: ID ACL expressao . FCL
+
+    FCL  shift, and go to state 97
+
+
+state 88
+
+   36 expressao: var ATT expressao .
+
+    $default  reduce using rule 36 (expressao)
+
+
+state 89
+
+   57 fator: var .
+
+    $default  reduce using rule 57 (fator)
+
+
+state 90
+
+   40 simples_expressao: soma_expressao relacional soma_expressao .
+   48 soma_expressao: soma_expressao . soma termo
+
+    SOM  shift, and go to state 67
+    SUB  shift, and go to state 68
+
+    $default  reduce using rule 40 (simples_expressao)
+
+    soma  go to state 76
+
+
+state 91
+
+   48 soma_expressao: soma_expressao soma termo .
+   52 termo: termo . mult fator
+
+    MUL  shift, and go to state 77
+    DIV  shift, and go to state 78
+
+    $default  reduce using rule 48 (soma_expressao)
+
+    mult  go to state 79
+
+
+state 92
+
+   52 termo: termo mult fator .
+
+    $default  reduce using rule 52 (termo)
+
+
+state 93
+
+   31 selecao_decl: IF APR expressao FPR . statement
+   32             | IF APR expressao FPR . statement ELS statement
+
+    IF   shift, and go to state 37
+    RTN  shift, and go to state 38
+    WHL  shift, and go to state 39
+    PEV  shift, and go to state 40
+    APR  shift, and go to state 41
+    ACH  shift, and go to state 27
+    ID   shift, and go to state 43
+    NUM  shift, and go to state 44
+
+    composto_decl      go to state 45
+    statement          go to state 98
+    expressao_decl     go to state 47
+    selecao_decl       go to state 48
+    iteracao_decl      go to state 49
+    retorno_decl       go to state 50
+    expressao          go to state 51
+    var                go to state 52
+    simples_expressao  go to state 53
+    soma_expressao     go to state 54
+    termo              go to state 55
+    fator              go to state 56
+    ativacao           go to state 57
+
+
+state 94
+
+   33 iteracao_decl: WHL APR expressao FPR . statement
+
+    IF   shift, and go to state 37
+    RTN  shift, and go to state 38
+    WHL  shift, and go to state 39
+    PEV  shift, and go to state 40
+    APR  shift, and go to state 41
+    ACH  shift, and go to state 27
+    ID   shift, and go to state 43
+    NUM  shift, and go to state 44
+
+    composto_decl      go to state 45
+    statement          go to state 99
+    expressao_decl     go to state 47
+    selecao_decl       go to state 48
+    iteracao_decl      go to state 49
+    retorno_decl       go to state 50
+    expressao          go to state 51
+    var                go to state 52
+    simples_expressao  go to state 53
+    soma_expressao     go to state 54
+    termo              go to state 55
+    fator              go to state 56
+    ativacao           go to state 57
+
+
+state 95
+
+   60 ativacao: ID APR args FPR .
+
+    $default  reduce using rule 60 (ativacao)
+
+
+state 96
+
+   63 arg_lista: arg_lista VRG . expressao
+
+    APR  shift, and go to state 41
+    ID   shift, and go to state 43
+    NUM  shift, and go to state 44
+
+    expressao          go to state 100
+    var                go to state 52
+    simples_expressao  go to state 53
+    soma_expressao     go to state 54
+    termo              go to state 55
+    fator              go to state 56
+    ativacao           go to state 57
+
+
+state 97
+
+   39 var: ID ACL expressao FCL .
+
+    $default  reduce using rule 39 (var)
+
+
+state 98
+
+   31 selecao_decl: IF APR expressao FPR statement .
+   32             | IF APR expressao FPR statement . ELS statement
+
+    ELS  shift, and go to state 101
+
+    ELS       [reduce using rule 31 (selecao_decl)]
+    $default  reduce using rule 31 (selecao_decl)
+
+
+state 99
+
+   33 iteracao_decl: WHL APR expressao FPR statement .
+
+    $default  reduce using rule 33 (iteracao_decl)
+
+
+state 100
+
+   63 arg_lista: arg_lista VRG expressao .
+
+    $default  reduce using rule 63 (arg_lista)
+
+
+state 101
+
+   32 selecao_decl: IF APR expressao FPR statement ELS . statement
+
+    IF   shift, and go to state 37
+    RTN  shift, and go to state 38
+    WHL  shift, and go to state 39
+    PEV  shift, and go to state 40
+    APR  shift, and go to state 41
+    ACH  shift, and go to state 27
+    ID   shift, and go to state 43
+    NUM  shift, and go to state 44
+
+    composto_decl      go to state 45
+    statement          go to state 102
+    expressao_decl     go to state 47
+    selecao_decl       go to state 48
+    iteracao_decl      go to state 49
+    retorno_decl       go to state 50
+    expressao          go to state 51
+    var                go to state 52
+    simples_expressao  go to state 53
+    soma_expressao     go to state 54
+    termo              go to state 55
+    fator              go to state 56
+    ativacao           go to state 57
+
+
+state 102
+
+   32 selecao_decl: IF APR expressao FPR statement ELS statement .
+
+    $default  reduce using rule 32 (selecao_decl)
